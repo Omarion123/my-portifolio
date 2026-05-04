@@ -19,7 +19,19 @@
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\OmarKarake\\\\OneDrive - AmaliTech gGmbH\\\\Desktop\\\\Projects\\\\portifolio\\\\frontend\" -Hidden -File)",
       "Bash(Select-Object Name)",
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\OmarKarake\\\\OneDrive - AmaliTech gGmbH\\\\Desktop\\\\Projects\\\\portifolio\" -Recurse -Force)",
-      "Bash(Select-Object -ExpandProperty FullName)"
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\OmarKarake\\\\OneDrive - AmaliTech gGmbH\\\\Desktop\\\\Projects\\\\portifolio\\\\original project from claude code in jsx\" -Recurse -Force)",
+      "Bash(Select-Object FullName)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\OmarKarake\\\\OneDrive - AmaliTech gGmbH\\\\Desktop\\\\Projects\\\\portifolio\\\\frontend\\\\src\\\\app\\\\features\\\\admin\" -Recurse -Filter \"*login*\")",
+      "Bash(powershell *)",
+      "Bash(Get-ChildItem C:\\\\Users\\\\OmarKarake\\\\OneDrive - AmaliTech gGmbH\\\\Desktop\\\\Projects\\\\portifolio\\\\original project from claude code in jsx *)",
+      "Bash(Get-ChildItem *)",
+      "Bash(node *)",
+      "Bash(git -C \"C:/Users/OmarKarake/OneDrive - AmaliTech gGmbH/Desktop/Projects/portifolio\" status)",
+      "Bash(git -C \"C:/Users/OmarKarake/OneDrive - AmaliTech gGmbH/Desktop/Projects/portifolio\" diff --stat)",
+      "Bash(git *)"
     ]
   }
 }
