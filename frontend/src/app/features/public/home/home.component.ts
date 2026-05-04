@@ -28,8 +28,14 @@ import { PortfolioService } from '../../../core/services/portfolio.service';
       <app-projects />
       <app-skills />
       <app-experience />
-      <app-education />
-      <app-certifications />
+      <section id="education" class="section">
+        <div class="wrap">
+          <div class="ec-grid">
+            <app-education />
+            <app-certifications />
+          </div>
+        </div>
+      </section>
       <app-blog />
       <app-contact />
     </main>

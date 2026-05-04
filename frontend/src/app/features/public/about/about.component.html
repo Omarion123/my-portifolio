@@ -1,39 +1,53 @@
-<section id="about" class="section-pad bg-surface border-t border-base">
-  <div class="max-w-7xl mx-auto">
+<section id="about" class="section">
+  <div class="wrap">
 
-    <p [appReveal]="0" class="text-xs font-mono mb-4 text-accent">01 — About</p>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-      <!-- Text -->
-      <div [appReveal]="100">
-        <h2 class="section-title mb-6">A bit about me</h2>
-        <div class="flex flex-col gap-4 mb-8">
-          @for (para of portfolio.about().paragraphs; track $index) {
-            <p class="text-muted leading-relaxed">{{ para }}</p>
-          }
-        </div>
-        <div>
-          <p class="text-xs font-mono text-faint mb-3 uppercase tracking-widest">Currently focused on</p>
-          <div class="flex flex-wrap gap-2">
-            @for (item of portfolio.about().focus; track item) {
-              <span class="px-3 py-1 text-sm rounded-full border border-base bg-card text-muted">
-                {{ item }}
-              </span>
-            }
-          </div>
-        </div>
-      </div>
-
-      <!-- Stats -->
-      <div class="grid grid-cols-2 gap-4">
-        @for (stat of portfolio.about().stats; track stat.k; let i = $index) {
-          <div [appReveal]="i * 80" class="card">
-            <p class="text-3xl font-medium mb-1 text-accent">{{ stat.v }}</p>
-            <p class="text-sm text-faint">{{ stat.k }}</p>
-          </div>
-        }
-      </div>
+    <div [appReveal]="0" class="sec-head">
+      <span class="sec-idx">01 / About</span>
+      <h2 class="sec-title">A short introduction.</h2>
+      <span class="sec-meta">~ 2 min read</span>
     </div>
 
+    <div class="about-grid">
+
+      <div [appReveal]="0" class="about-portrait">
+        <div class="portrait-frame">
+          <div class="portrait-img" aria-label="Portrait placeholder">
+            <span class="mono portrait-tag">portrait.jpg · 4×5</span>
+          </div>
+          <div class="portrait-meta">
+            <span class="mono">{{ portfolio.identity().location }}</span>
+            <span class="mono">EST. 2018</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-body">
+        @for (para of portfolio.about().paragraphs; track $index; let i = $index) {
+          <p [appReveal]="120 + i * 80" class="about-p">{{ para }}</p>
+        }
+
+        <div [appReveal]="320" class="about-focus">
+          <span class="mono">I focus on</span>
+          <ul>
+            @for (item of portfolio.about().focus; track item; let i = $index) {
+              <li>
+                <span class="focus-num mono">{{ (i + 1).toString().padStart(2, '0') }}</span>
+                <span>{{ item }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <div [appReveal]="420" class="about-stats">
+          @for (stat of portfolio.about().stats; track stat.k) {
+            <div class="stat">
+              <span class="stat-v">{{ stat.v }}</span>
+              <span class="stat-k mono">{{ stat.k }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>

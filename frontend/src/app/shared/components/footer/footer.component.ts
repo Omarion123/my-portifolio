@@ -8,4 +8,8 @@ import { PortfolioService } from '../../../core/services/portfolio.service';
 export class FooterComponent {
   portfolio = inject(PortfolioService);
   year = new Date().getFullYear();
+
+  scrollTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

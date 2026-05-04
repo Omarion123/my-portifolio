@@ -1,15 +1,32 @@
-<footer class="border-t border-base bg-surface py-12 px-6 md:px-12">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-    <span class="font-mono text-sm text-faint">
-      &copy; {{ year }} {{ portfolio.identity().name }}. Built with Angular 21.
-    </span>
-    <div class="flex items-center gap-6">
-      <a [href]="'https://' + portfolio.identity().github" target="_blank" rel="noopener"
-        class="text-sm text-muted hover:text-primary transition-colors">GitHub</a>
-      <a [href]="'https://' + portfolio.identity().linkedin" target="_blank" rel="noopener"
-        class="text-sm text-muted hover:text-primary transition-colors">LinkedIn</a>
-      <a [href]="'mailto:' + portfolio.identity().email"
-        class="text-sm text-muted hover:text-primary transition-colors">Email</a>
+<footer class="foot">
+  <div class="wrap foot-inner">
+
+    <div class="foot-big">
+      <span>{{ portfolio.identity().name.split(' ')[0] }}.</span>
+      <span class="foot-big-dim">{{ portfolio.identity().name.split(' ').slice(1).join(' ') }}</span>
     </div>
+
+    <div class="foot-cols">
+      <div>
+        <span class="mono">Local</span>
+        <span>{{ portfolio.identity().location }}</span>
+      </div>
+      <div>
+        <span class="mono">Email</span>
+        <a class="ulink" [href]="'mailto:' + portfolio.identity().email">
+          {{ portfolio.identity().email }}
+        </a>
+      </div>
+      <div>
+        <span class="mono">Year</span>
+        <span>{{ year }}</span>
+      </div>
+    </div>
+
+    <div class="foot-fine mono">
+      <span>Designed and built by hand · No analytics · Angular 21</span>
+      <button class="ulink" (click)="scrollTop()">Back to top ↑</button>
+    </div>
+
   </div>
 </footer>

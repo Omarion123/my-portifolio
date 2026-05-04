@@ -1,30 +1,38 @@
-<section id="skills" class="section-pad bg-surface border-t border-base">
-  <div class="max-w-7xl mx-auto">
-    <p [appReveal]="0" class="text-xs font-mono mb-4 text-accent">03 — Skills</p>
-    <h2 [appReveal]="80" class="section-title mb-12">Technical expertise</h2>
+<section id="skills" class="section">
+  <div class="wrap">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      @for (group of portfolio.skills(); track group.group; let i = $index) {
-        <div [appReveal]="i * 100" class="card">
-          <h3 class="text-sm font-mono font-medium mb-6 text-accent">{{ group.group }}</h3>
-          <div class="flex flex-col gap-4">
-            @for (skill of group.items; track skill.name) {
-              <div>
-                <div class="flex justify-between text-sm mb-2">
-                  <span class="text-primary">{{ skill.name }}</span>
-                  <span class="text-faint font-mono">{{ skill.level }}%</span>
-                </div>
-                <div class="h-1.5 rounded-full overflow-hidden" style="background: var(--bg-card-2)">
-                  <div class="h-full rounded-full transition-all duration-700"
-                    style="background: var(--accent)"
-                    [style.width.%]="skill.level">
-                  </div>
-                </div>
-              </div>
-            }
+    <div [appReveal]="0" class="sec-head">
+      <span class="sec-idx">03 / Skills</span>
+      <h2 class="sec-title">Tools I reach for.</h2>
+      <span class="sec-meta">By layer</span>
+    </div>
+
+    <div class="skills-grid">
+      @for (group of portfolio.skills(); track group.group; let gi = $index) {
+        <div [appReveal]="gi * 80" class="skill-col">
+          <div class="skill-col-head">
+            <span class="mono">{{ (gi + 1).toString().padStart(2, '0') }}</span>
+            <h3>{{ group.group }}</h3>
           </div>
+          <ul class="skill-list">
+            @for (skill of group.items; track skill.name) {
+              <li class="skill-item">
+                <div class="skill-row">
+                  <span>{{ skill.name }}</span>
+                  <span class="mono skill-pct">{{ skill.level }}</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-fill" [style.width.%]="skill.level"></div>
+                  <div class="skill-bar-tick" style="left: 25%"></div>
+                  <div class="skill-bar-tick" style="left: 50%"></div>
+                  <div class="skill-bar-tick" style="left: 75%"></div>
+                </div>
+              </li>
+            }
+          </ul>
         </div>
       }
     </div>
+
   </div>
 </section>
