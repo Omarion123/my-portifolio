@@ -80,8 +80,8 @@ async function seed() {
   // Blog posts
   await BlogPost.deleteMany({});
   await BlogPost.insertMany([
-    { title: 'Getting started with Angular 21', excerpt: 'A tour of the most exciting features in Angular 21 — signals, view transitions, and the new control flow.', date: 'May 1, 2026', readMin: 5, tag: 'Frontend', published: true },
-    { title: 'Building a REST API with Express 5 and MongoDB', excerpt: 'A step-by-step walkthrough of building a production-ready REST API with the latest Express and Mongoose.', date: 'Apr 15, 2026', readMin: 8, tag: 'Backend', published: true },
+    { title: 'Getting started with Angular 21', slug: 'getting-started-with-angular-21', excerpt: 'A tour of the most exciting features in Angular 21 — signals, view transitions, and the new control flow.', date: 'May 1, 2026', readMin: 5, tag: 'Frontend', published: true },
+    { title: 'Building a REST API with Express 5 and MongoDB', slug: 'building-a-rest-api-with-express-5-and-mongodb', excerpt: 'A step-by-step walkthrough of building a production-ready REST API with the latest Express and Mongoose.', date: 'Apr 15, 2026', readMin: 8, tag: 'Backend', published: true },
   ]);
 
   console.log('Seed complete.');
