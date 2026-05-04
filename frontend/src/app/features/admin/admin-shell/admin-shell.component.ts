@@ -18,14 +18,14 @@ export class AdminShellComponent {
   sidebarOpen = signal(true);
 
   navItems: NavItem[] = [
-    { label: 'Dashboard', path: '/admin', icon: 'grid' },
-    { label: 'Projects', path: '/admin/projects', icon: 'folder' },
-    { label: 'Skills', path: '/admin/skills', icon: 'code' },
-    { label: 'Experience', path: '/admin/experience', icon: 'briefcase' },
-    { label: 'Education', path: '/admin/education', icon: 'book' },
-    { label: 'Certifications', path: '/admin/certifications', icon: 'badge' },
-    { label: 'Blog', path: '/admin/blog', icon: 'edit' },
-    { label: 'Contact', path: '/admin/contact', icon: 'mail' },
+    { label: 'Dashboard',      path: '/admin',                icon: '◇' },
+    { label: 'Projects',       path: '/admin/projects',       icon: '□' },
+    { label: 'Skills',         path: '/admin/skills',         icon: '△' },
+    { label: 'Experience',     path: '/admin/experience',     icon: '▷' },
+    { label: 'Education',      path: '/admin/education',      icon: '▽' },
+    { label: 'Certifications', path: '/admin/certifications', icon: '✦' },
+    { label: 'Blog',           path: '/admin/blog',           icon: '❡' },
+    { label: 'Contact',        path: '/admin/contact',        icon: '@' },
   ];
 
   logout() { this.auth.logout(); }

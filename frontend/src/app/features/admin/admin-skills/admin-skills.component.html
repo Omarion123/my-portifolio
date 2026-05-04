@@ -1,42 +1,41 @@
-<div>
-  <div class="flex items-center justify-between mb-8">
-    <h1 class="text-2xl font-medium text-neutral-100">Skills</h1>
-    <button (click)="save()"
-      class="px-4 py-2 rounded-xl text-sm font-medium text-white hover:opacity-90"
-      style="background: var(--accent)">
-      Save changes
-    </button>
+<div class="adm-page">
+
+  <div class="adm-page-head">
+    <div>
+      <h1>Skills</h1>
+      <p class="adm-page-sub">{{ portfolio.skills().length }} groups</p>
+    </div>
+    <div class="adm-page-actions">
+      <button (click)="save()" class="btn btn-primary">Save changes</button>
+    </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="adm-grid-skills">
     @for (group of portfolio.skills(); track group.group; let gi = $index) {
-      <div class="card">
-        <h2 class="text-sm font-mono font-medium mb-4" style="color: var(--accent)">{{ group.group }}</h2>
-        <div class="flex flex-col gap-3 mb-4">
-          @for (skill of group.items; track skill.name; let si = $index) {
-            <div class="flex items-center gap-3">
-              <span class="text-sm text-neutral-300 w-32 flex-shrink-0 truncate">{{ skill.name }}</span>
-              <input type="range" min="0" max="100"
-                [ngModel]="skill.level"
-                (ngModelChange)="updateLevel(gi, si, $event)"
-                [name]="'skill_' + gi + '_' + si"
-                class="flex-1 h-1.5 rounded-full appearance-none cursor-pointer"
-                style="accent-color: var(--accent)">
-              <span class="font-mono text-xs text-neutral-500 w-8">{{ skill.level }}%</span>
-              <button (click)="removeSkill(gi, si)" class="text-neutral-600 hover:text-red-400 transition-colors">×</button>
-            </div>
-          }
+      <div class="card adm-skill-card">
+        <div class="adm-skill-head">
+          <h3>{{ group.group }}</h3>
+          <span class="mono">{{ group.items.length }} skills</span>
         </div>
-        <div class="flex gap-2 pt-3 border-t border-neutral-800">
-          <input #nameInput type="text" placeholder="Skill name"
-            class="flex-1 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-1.5 text-xs text-neutral-100 focus:outline-none">
+        @for (skill of group.items; track skill.name; let si = $index) {
+          <div class="adm-skill-row">
+            <span>{{ skill.name }}</span>
+            <input type="range" min="0" max="100"
+              [ngModel]="skill.level"
+              (ngModelChange)="updateLevel(gi, si, $event)"
+              [name]="'skill_' + gi + '_' + si"
+              style="accent-color: var(--accent); width: 100%">
+            <span class="mono">{{ skill.level }}%</span>
+            <button (click)="removeSkill(gi, si)" class="adm-danger" style="background:none;border:0;cursor:pointer;font-size:16px;">×</button>
+          </div>
+        }
+        <div style="display:flex;gap:8px;padding-top:12px;border-top:1px solid var(--line)">
+          <input #nameInput type="text" placeholder="Skill name" class="field adm-skill-field" style="flex:1">
           <button (click)="addSkill(gi, nameInput.value, 75); nameInput.value = ''"
-            class="px-3 py-1.5 rounded-lg text-xs text-white"
-            style="background: var(--accent-soft); color: var(--accent)">
-            Add
-          </button>
+            class="btn btn-ghost btn-sm">Add</button>
         </div>
       </div>
     }
   </div>
+
 </div>

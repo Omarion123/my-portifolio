@@ -1,76 +1,78 @@
-<div>
-  <div class="flex items-center justify-between mb-8">
-    <h1 class="text-2xl font-medium text-neutral-100">Experience</h1>
-    <button (click)="startNew()"
-      class="px-4 py-2 rounded-xl text-sm font-medium text-white hover:opacity-90"
-      style="background: var(--accent)">+ Add entry</button>
+<div class="adm-page">
+
+  <div class="adm-page-head">
+    <div>
+      <h1>Experience</h1>
+      <p class="adm-page-sub">{{ portfolio.experience().length }} entries</p>
+    </div>
+    <div class="adm-page-actions">
+      <button (click)="startNew()" class="btn btn-primary">+ Add entry</button>
+    </div>
   </div>
 
   @if (editing) {
-    <div class="card mb-8">
-      <h2 class="text-base font-medium text-neutral-100 mb-6">{{ editing._id ? 'Edit' : 'New' }} experience</h2>
+    <div class="card adm-form">
+      <h2>{{ editing._id ? 'Edit' : 'New' }} experience</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Role *</label>
-          <input [(ngModel)]="editing.role" name="role"
-            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+          <label class="field-label">Role *</label>
+          <input class="field" [(ngModel)]="editing.role" name="role">
         </div>
         <div>
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Company *</label>
-          <input [(ngModel)]="editing.org" name="org"
-            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+          <label class="field-label">Company *</label>
+          <input class="field" [(ngModel)]="editing.org" name="org">
         </div>
         <div>
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">From</label>
-          <input [(ngModel)]="editing.from" name="from"
-            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+          <label class="field-label">From</label>
+          <input class="field" [(ngModel)]="editing.from" name="from">
         </div>
         <div>
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">To</label>
-          <input [(ngModel)]="editing.to" name="to"
-            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+          <label class="field-label">To</label>
+          <input class="field" [(ngModel)]="editing.to" name="to">
         </div>
         <div>
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Location</label>
-          <input [(ngModel)]="editing.where" name="where"
-            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+          <label class="field-label">Location</label>
+          <input class="field" [(ngModel)]="editing.where" name="where">
         </div>
         <div class="md:col-span-2">
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Summary</label>
-          <textarea [(ngModel)]="editing.summary" name="summary" rows="3"
-            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none resize-none"></textarea>
+          <label class="field-label">Summary</label>
+          <textarea class="field" [(ngModel)]="editing.summary" name="summary" rows="3"></textarea>
         </div>
         <div class="md:col-span-2">
-          <label class="block text-xs font-mono text-neutral-500 mb-2">Key achievements</label>
+          <label class="field-label">Key achievements</label>
           @for (bullet of editing.bullets; track trackByIndex($index); let i = $index) {
-            <div class="flex gap-2 mb-2">
-              <input [(ngModel)]="editing.bullets[i]" [name]="'bullet_' + i"
-                class="flex-1 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
-              <button (click)="removeBullet(i)" class="px-2 text-red-400 hover:text-red-300">×</button>
+            <div style="display:flex;gap:8px;margin-bottom:8px">
+              <input class="field" [(ngModel)]="editing.bullets[i]" [name]="'bullet_' + i" style="flex:1">
+              <button (click)="removeBullet(i)" class="btn btn-ghost btn-sm adm-danger">×</button>
             </div>
           }
-          <button (click)="addBullet()" class="text-xs mt-1" style="color: var(--accent)">+ Add bullet</button>
+          <button (click)="addBullet()" class="btn btn-ghost btn-sm" style="margin-top:4px">+ Add bullet</button>
         </div>
       </div>
-      <div class="flex gap-3 mt-6 pt-6 border-t border-neutral-800">
-        <button (click)="save()" class="px-4 py-2 rounded-lg text-sm font-medium text-white" style="background: var(--accent)">Save</button>
-        <button (click)="cancel()" class="px-4 py-2 rounded-lg text-sm text-neutral-400 border border-neutral-700">Cancel</button>
+      <div class="adm-drawer-foot">
+        <div>
+          <button (click)="save()" class="btn btn-primary">Save</button>
+          <button (click)="cancel()" class="btn btn-ghost">Cancel</button>
+        </div>
       </div>
     </div>
   }
 
-  <div class="flex flex-col gap-3">
+  <div class="card adm-list">
     @for (exp of portfolio.experience(); track exp._id) {
-      <div class="card flex items-center justify-between gap-4">
-        <div>
-          <p class="text-sm font-medium text-neutral-100">{{ exp.role }}</p>
-          <p class="text-xs text-neutral-500">{{ exp.org }} · {{ exp.from }}–{{ exp.to }}</p>
+      <div class="adm-list-row">
+        <span class="adm-list-handle mono">≡</span>
+        <div class="adm-list-main">
+          <h4>{{ exp.role }}</h4>
+          <p>{{ exp.org }} · {{ exp.from }}–{{ exp.to }}</p>
         </div>
-        <div class="flex gap-2 flex-shrink-0">
-          <button (click)="startEdit(exp)" class="px-3 py-1.5 text-xs rounded-lg border border-neutral-700 text-neutral-400 hover:text-neutral-100 transition-colors">Edit</button>
-          <button (click)="delete(exp._id!)" class="px-3 py-1.5 text-xs rounded-lg border border-neutral-700 text-red-500 hover:bg-red-500/10 transition-colors">Delete</button>
+        <span class="adm-list-meta mono">{{ exp.where }}</span>
+        <div class="adm-list-actions">
+          <button (click)="startEdit(exp)" class="btn btn-ghost btn-sm">Edit</button>
+          <button (click)="delete(exp._id!)" class="btn btn-ghost btn-sm adm-danger">Delete</button>
         </div>
       </div>
     }
   </div>
+
 </div>

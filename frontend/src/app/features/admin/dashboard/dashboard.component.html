@@ -1,34 +1,44 @@
-<div>
-  <h1 class="text-2xl font-medium text-neutral-100 mb-2">Dashboard</h1>
-  <p class="text-sm text-neutral-400 mb-8">Manage your portfolio content</p>
+<div class="adm-page">
 
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-    <div class="card">
-      <p class="text-2xl font-medium text-neutral-100" style="color: var(--accent)">{{ portfolio.projects().length }}</p>
-      <p class="text-xs text-neutral-500 mt-1">Projects</p>
-    </div>
-    <div class="card">
-      <p class="text-2xl font-medium text-neutral-100" style="color: var(--accent)">{{ portfolio.skills().length }}</p>
-      <p class="text-xs text-neutral-500 mt-1">Skill groups</p>
-    </div>
-    <div class="card">
-      <p class="text-2xl font-medium text-neutral-100" style="color: var(--accent)">{{ portfolio.experience().length }}</p>
-      <p class="text-xs text-neutral-500 mt-1">Experience entries</p>
-    </div>
-    <div class="card">
-      <p class="text-2xl font-medium text-neutral-100" style="color: var(--accent)">{{ portfolio.posts().length }}</p>
-      <p class="text-xs text-neutral-500 mt-1">Blog posts</p>
+  <div class="adm-page-head">
+    <div>
+      <h1>Overview</h1>
+      <p class="adm-page-sub">Your portfolio at a glance.</p>
     </div>
   </div>
 
-  <h2 class="text-sm font-mono text-neutral-500 uppercase tracking-widest mb-4">Quick access</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-    @for (item of quickLinks; track item.path) {
-      <a [routerLink]="item.path"
-        class="card flex items-center gap-3 hover:border-neutral-600 transition-colors group">
-        <span class="text-lg">{{ item.emoji }}</span>
-        <span class="text-sm text-neutral-300 group-hover:text-neutral-100 transition-colors">{{ item.label }}</span>
-      </a>
-    }
+  <div class="adm-stats">
+    <div class="card adm-stat">
+      <div class="adm-stat-k mono">Projects</div>
+      <div class="adm-stat-v">{{ portfolio.projects().length }}</div>
+    </div>
+    <div class="card adm-stat">
+      <div class="adm-stat-k mono">Skill groups</div>
+      <div class="adm-stat-v">{{ portfolio.skills().length }}</div>
+    </div>
+    <div class="card adm-stat">
+      <div class="adm-stat-k mono">Experience</div>
+      <div class="adm-stat-v">{{ portfolio.experience().length }}</div>
+    </div>
+    <div class="card adm-stat">
+      <div class="adm-stat-k mono">Blog posts</div>
+      <div class="adm-stat-v">{{ portfolio.posts().length }}</div>
+    </div>
   </div>
+
+  <div class="card adm-panel">
+    <div class="adm-panel-head">
+      <h3>Quick access</h3>
+      <span class="mono">{{ quickLinks.length }} sections</span>
+    </div>
+    <div class="adm-quick">
+      @for (item of quickLinks; track item.path) {
+        <a [routerLink]="item.path" class="adm-quick-item">
+          <span>{{ item.label }}</span>
+          <span class="adm-quick-k mono">→</span>
+        </a>
+      }
+    </div>
+  </div>
+
 </div>

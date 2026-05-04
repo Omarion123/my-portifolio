@@ -1,42 +1,37 @@
-<div class="min-h-screen bg-surface flex">
+<div class="adm">
 
-  <!-- Sidebar -->
-  <aside class="w-60 flex flex-col fixed inset-y-0 left-0 z-40 border-r border-base bg-card">
-    <div class="h-16 px-5 flex items-center border-b border-base">
-      <span class="font-mono text-sm font-medium text-primary">admin panel</span>
+  <aside class="adm-side">
+    <div class="adm-side-head">
+      <div class="adm-mark"><span></span></div>
+      <div>
+        <div class="adm-side-title">Portfolio</div>
+        <div class="mono adm-side-sub">admin · v1.0.0</div>
+      </div>
     </div>
 
-    <nav class="flex-1 px-2 py-3 flex flex-col gap-0.5 overflow-y-auto">
+    <nav class="adm-nav">
+      <div class="adm-nav-group mono">Manage</div>
       @for (item of navItems; track item.path) {
         <a [routerLink]="item.path"
-          routerLinkActive="bg-card-2 text-primary"
+          routerLinkActive="adm-nav-active"
           [routerLinkActiveOptions]="{ exact: item.path === '/admin' }"
-          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-muted hover:text-primary hover:bg-card-2 transition-colors">
-          {{ item.label }}
+          class="adm-nav-item">
+          <span class="adm-nav-icon">{{ item.icon }}</span>
+          <span class="adm-nav-label">{{ item.label }}</span>
         </a>
       }
     </nav>
 
-    <div class="border-t border-base p-3 flex flex-col gap-1">
-      <button (click)="logout()"
-        class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted hover:text-red-500 hover:bg-red-500/10 transition-colors">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-        </svg>
-        Sign out
-      </button>
-      <a routerLink="/"
-        class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-faint hover:text-muted transition-colors">
-        ← View portfolio
-      </a>
+    <div class="adm-side-foot">
+      <button (click)="logout()" class="btn btn-ghost btn-sm">Sign out</button>
+      <a routerLink="/" class="btn btn-ghost btn-sm">↗ Site</a>
     </div>
   </aside>
 
-  <!-- Page content -->
-  <div class="flex-1 ml-60 min-h-screen">
-    <main class="p-8 max-w-5xl">
+  <div class="adm-main">
+    <div class="adm-body">
       <router-outlet />
-    </main>
+    </div>
   </div>
+
 </div>

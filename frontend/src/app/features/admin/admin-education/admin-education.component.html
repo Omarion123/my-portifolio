@@ -1,53 +1,64 @@
-<div>
-  <div class="flex items-center justify-between mb-8">
-    <h1 class="text-2xl font-medium text-neutral-100">Education</h1>
-    <button (click)="startNew()" class="px-4 py-2 rounded-xl text-sm font-medium text-white hover:opacity-90" style="background: var(--accent)">+ Add</button>
+<div class="adm-page">
+
+  <div class="adm-page-head">
+    <div>
+      <h1>Education</h1>
+      <p class="adm-page-sub">{{ portfolio.education().length }} entries</p>
+    </div>
+    <div class="adm-page-actions">
+      <button (click)="startNew()" class="btn btn-primary">+ Add</button>
+    </div>
   </div>
 
   @if (editing) {
-    <div class="card mb-8">
-      <h2 class="text-base font-medium text-neutral-100 mb-6">{{ editing._id ? 'Edit' : 'New' }} education</h2>
+    <div class="card adm-form">
+      <h2>{{ editing._id ? 'Edit' : 'New' }} education</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Degree *</label>
-          <input [(ngModel)]="editing.degree" name="degree" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+          <label class="field-label">Degree *</label>
+          <input class="field" [(ngModel)]="editing.degree" name="degree">
         </div>
         <div>
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Institution *</label>
-          <input [(ngModel)]="editing.org" name="org" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+          <label class="field-label">Institution *</label>
+          <input class="field" [(ngModel)]="editing.org" name="org">
         </div>
         <div>
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">From</label>
-          <input [(ngModel)]="editing.from" name="from" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+          <label class="field-label">From</label>
+          <input class="field" [(ngModel)]="editing.from" name="from">
         </div>
         <div>
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">To</label>
-          <input [(ngModel)]="editing.to" name="to" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+          <label class="field-label">To</label>
+          <input class="field" [(ngModel)]="editing.to" name="to">
         </div>
         <div class="md:col-span-2">
-          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Note</label>
-          <textarea [(ngModel)]="editing.note" name="note" rows="2" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none resize-none"></textarea>
+          <label class="field-label">Note</label>
+          <textarea class="field" [(ngModel)]="editing.note" name="note" rows="2"></textarea>
         </div>
       </div>
-      <div class="flex gap-3 mt-6 pt-6 border-t border-neutral-800">
-        <button (click)="save()" class="px-4 py-2 rounded-lg text-sm font-medium text-white" style="background: var(--accent)">Save</button>
-        <button (click)="cancel()" class="px-4 py-2 rounded-lg text-sm text-neutral-400 border border-neutral-700">Cancel</button>
+      <div class="adm-drawer-foot">
+        <div>
+          <button (click)="save()" class="btn btn-primary">Save</button>
+          <button (click)="cancel()" class="btn btn-ghost">Cancel</button>
+        </div>
       </div>
     </div>
   }
 
-  <div class="flex flex-col gap-3">
+  <div class="card adm-list">
     @for (ed of portfolio.education(); track ed._id) {
-      <div class="card flex items-center justify-between">
-        <div>
-          <p class="text-sm font-medium text-neutral-100">{{ ed.degree }}</p>
-          <p class="text-xs text-neutral-500">{{ ed.org }} · {{ ed.from }}–{{ ed.to }}</p>
+      <div class="adm-list-row">
+        <span class="adm-list-handle mono">≡</span>
+        <div class="adm-list-main">
+          <h4>{{ ed.degree }}</h4>
+          <p>{{ ed.org }} · {{ ed.from }}–{{ ed.to }}</p>
         </div>
-        <div class="flex gap-2">
-          <button (click)="startEdit(ed)" class="px-3 py-1.5 text-xs rounded-lg border border-neutral-700 text-neutral-400 hover:text-neutral-100 transition-colors">Edit</button>
-          <button (click)="delete(ed._id!)" class="px-3 py-1.5 text-xs rounded-lg border border-neutral-700 text-red-500 hover:bg-red-500/10 transition-colors">Delete</button>
+        <span class="adm-list-meta mono">{{ ed.from }}</span>
+        <div class="adm-list-actions">
+          <button (click)="startEdit(ed)" class="btn btn-ghost btn-sm">Edit</button>
+          <button (click)="delete(ed._id!)" class="btn btn-ghost btn-sm adm-danger">Delete</button>
         </div>
       </div>
     }
   </div>
+
 </div>
