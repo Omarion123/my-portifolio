@@ -1,0 +1,25 @@
+<section id="certifications" class="section-pad bg-surface border-t border-base">
+  <div class="max-w-7xl mx-auto">
+    <p [appReveal]="0" class="text-xs font-mono mb-4 text-accent">06 — Certifications</p>
+    <h2 [appReveal]="80" class="section-title mb-12">Credentials & achievements</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      @for (cert of portfolio.certifications(); track cert._id; let i = $index) {
+        <div [appReveal]="i * 80" class="card flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-accent-soft">
+            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              style="color: var(--accent)">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-primary leading-tight">{{ cert.name }}</h3>
+            <p class="text-xs text-faint mt-1">{{ cert.org }}</p>
+            <p class="text-xs font-mono mt-1 text-accent">{{ cert.year }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,44 @@
+<section id="experience" class="section-pad bg-surface border-t border-base">
+  <div class="max-w-7xl mx-auto">
+    <p [appReveal]="0" class="text-xs font-mono mb-4 text-accent">04 — Experience</p>
+    <h2 [appReveal]="80" class="section-title mb-12">Work history</h2>
+
+    <div class="relative">
+      <div class="absolute left-0 md:left-40 top-0 bottom-0 w-px" style="background: var(--border)"></div>
+
+      <div class="flex flex-col gap-12">
+        @for (exp of portfolio.experience(); track exp._id; let i = $index) {
+          <div [appReveal]="i * 100" class="relative flex flex-col md:flex-row gap-6 md:gap-12">
+
+            <div class="md:w-40 md:text-right flex-shrink-0">
+              <span class="text-xs font-mono text-faint">{{ exp.from }} — {{ exp.to }}</span>
+            </div>
+
+            <div class="absolute left-0 md:left-40 top-1.5 w-2 h-2 rounded-full -translate-x-[3px]"
+              style="background: var(--accent)"></div>
+
+            <div class="pl-6 md:pl-0 flex-1">
+              <h3 class="text-lg font-medium text-primary">{{ exp.role }}</h3>
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-sm font-mono text-accent">{{ exp.org }}</span>
+                <span class="text-faint">·</span>
+                <span class="text-sm text-muted">{{ exp.where }}</span>
+              </div>
+              <p class="text-sm text-muted leading-relaxed mb-4">{{ exp.summary }}</p>
+              @if (exp.bullets.length > 0) {
+                <ul class="flex flex-col gap-2">
+                  @for (bullet of exp.bullets; track bullet) {
+                    <li class="flex gap-3 text-sm text-muted">
+                      <span class="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style="background: var(--accent)"></span>
+                      {{ bullet }}
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

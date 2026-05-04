@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npx @angular/cli version)",
+      "Bash(npm show *)",
+      "Bash(npx @angular/cli@latest new frontend --routing --style=scss --skip-git --package-manager=npm)",
+      "Bash(npm install *)",
+      "Bash(npx ng *)",
+      "Bash(mkdir -p \"C:\\\\Users\\\\OmarKarake\\\\OneDrive - AmaliTech gGmbH\\\\Desktop\\\\Projects\\\\portifolio\\\\backend\")",
+      "Bash(npm init *)",
+      "Bash(npx tsc *)",
+      "Bash(mongod --version)",
+      "Bash(sc query *)",
+      "Bash(powershell.exe -Command \"Get-Service -Name 'MongoDB' -ErrorAction SilentlyContinue\")",
+      "Bash(npm list *)",
+      "Bash(npm run *)",
+      "Bash(npm start *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\OmarKarake\\\\OneDrive - AmaliTech gGmbH\\\\Desktop\\\\Projects\\\\portifolio\\\\frontend\" -Hidden -File)",
+      "Bash(Select-Object Name)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\OmarKarake\\\\OneDrive - AmaliTech gGmbH\\\\Desktop\\\\Projects\\\\portifolio\" -Recurse -Force)",
+      "Bash(Select-Object -ExpandProperty FullName)"
+    ]
+  }
+}

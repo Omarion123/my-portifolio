@@ -1,0 +1,30 @@
+<section id="skills" class="section-pad bg-surface border-t border-base">
+  <div class="max-w-7xl mx-auto">
+    <p [appReveal]="0" class="text-xs font-mono mb-4 text-accent">03 — Skills</p>
+    <h2 [appReveal]="80" class="section-title mb-12">Technical expertise</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      @for (group of portfolio.skills(); track group.group; let i = $index) {
+        <div [appReveal]="i * 100" class="card">
+          <h3 class="text-sm font-mono font-medium mb-6 text-accent">{{ group.group }}</h3>
+          <div class="flex flex-col gap-4">
+            @for (skill of group.items; track skill.name) {
+              <div>
+                <div class="flex justify-between text-sm mb-2">
+                  <span class="text-primary">{{ skill.name }}</span>
+                  <span class="text-faint font-mono">{{ skill.level }}%</span>
+                </div>
+                <div class="h-1.5 rounded-full overflow-hidden" style="background: var(--bg-card-2)">
+                  <div class="h-full rounded-full transition-all duration-700"
+                    style="background: var(--accent)"
+                    [style.width.%]="skill.level">
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

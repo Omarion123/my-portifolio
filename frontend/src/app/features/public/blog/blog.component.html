@@ -1,0 +1,27 @@
+<section id="blog" class="section-pad bg-surface border-t border-base">
+  <div class="max-w-7xl mx-auto">
+    <p [appReveal]="0" class="text-xs font-mono mb-4 text-accent">07 — Writing</p>
+    <h2 [appReveal]="80" class="section-title mb-12">Recent articles</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      @for (post of portfolio.posts(); track post._id; let i = $index) {
+        <article [appReveal]="i * 80" class="card group cursor-pointer hover:scale-[1.01] transition-transform duration-200">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs px-2 py-0.5 rounded-full font-mono bg-accent-soft text-accent">
+              {{ post.tag }}
+            </span>
+            <span class="text-xs font-mono text-faint">{{ post.readMin }} min</span>
+          </div>
+          <h3 class="text-base font-medium text-primary mb-2 group-hover:text-accent transition-colors leading-snug">
+            {{ post.title }}
+          </h3>
+          <p class="text-sm text-muted leading-relaxed mb-4">{{ post.excerpt }}</p>
+          <div class="flex items-center justify-between pt-4 border-t border-base">
+            <span class="text-xs text-faint font-mono">{{ post.date }}</span>
+            <span class="text-xs text-accent">Read →</span>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+<section id="education" class="section-pad bg-surface border-t border-base">
+  <div class="max-w-7xl mx-auto">
+    <p [appReveal]="0" class="text-xs font-mono mb-4 text-accent">05 — Education</p>
+    <h2 [appReveal]="80" class="section-title mb-12">Academic background</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @for (ed of portfolio.education(); track ed._id; let i = $index) {
+        <div [appReveal]="i * 100" class="card">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <h3 class="text-base font-medium text-primary">{{ ed.degree }}</h3>
+              <p class="text-sm font-mono mt-0.5 text-accent">{{ ed.org }}</p>
+            </div>
+            <span class="text-xs font-mono text-faint flex-shrink-0 mt-1">{{ ed.from }}–{{ ed.to }}</span>
+          </div>
+          @if (ed.note) {
+            <p class="text-sm text-muted">{{ ed.note }}</p>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>

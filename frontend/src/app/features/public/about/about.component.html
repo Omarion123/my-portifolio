@@ -1,0 +1,39 @@
+<section id="about" class="section-pad bg-surface border-t border-base">
+  <div class="max-w-7xl mx-auto">
+
+    <p [appReveal]="0" class="text-xs font-mono mb-4 text-accent">01 — About</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <!-- Text -->
+      <div [appReveal]="100">
+        <h2 class="section-title mb-6">A bit about me</h2>
+        <div class="flex flex-col gap-4 mb-8">
+          @for (para of portfolio.about().paragraphs; track $index) {
+            <p class="text-muted leading-relaxed">{{ para }}</p>
+          }
+        </div>
+        <div>
+          <p class="text-xs font-mono text-faint mb-3 uppercase tracking-widest">Currently focused on</p>
+          <div class="flex flex-wrap gap-2">
+            @for (item of portfolio.about().focus; track item) {
+              <span class="px-3 py-1 text-sm rounded-full border border-base bg-card text-muted">
+                {{ item }}
+              </span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 gap-4">
+        @for (stat of portfolio.about().stats; track stat.k; let i = $index) {
+          <div [appReveal]="i * 80" class="card">
+            <p class="text-3xl font-medium mb-1 text-accent">{{ stat.v }}</p>
+            <p class="text-sm text-faint">{{ stat.k }}</p>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+</section>

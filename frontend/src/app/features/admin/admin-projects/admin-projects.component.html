@@ -1,0 +1,123 @@
+<div>
+  <div class="flex items-center justify-between mb-8">
+    <div>
+      <h1 class="text-2xl font-medium text-neutral-100">Projects</h1>
+      <p class="text-sm text-neutral-400">{{ portfolio.projects().length }} projects</p>
+    </div>
+    <button (click)="startNew()"
+      class="px-4 py-2 rounded-xl text-sm font-medium text-white transition-opacity hover:opacity-90"
+      style="background: var(--accent)">
+      + Add project
+    </button>
+  </div>
+
+  <!-- Edit form -->
+  @if (editing()) {
+    <div class="card mb-8">
+      <h2 class="text-base font-medium text-neutral-100 mb-6">
+        {{ editing()!._id ? 'Edit project' : 'New project' }}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Title *</label>
+          <input [(ngModel)]="editing()!.title" name="title"
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none focus:border-neutral-500">
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Role</label>
+          <input [(ngModel)]="editing()!.role" name="role"
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none focus:border-neutral-500">
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Description *</label>
+          <textarea [(ngModel)]="editing()!.blurb" name="blurb" rows="3"
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none focus:border-neutral-500 resize-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Category</label>
+          <select [(ngModel)]="editing()!.category" name="category"
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+            <option>Product</option><option>Infrastructure</option><option>DevTools</option><option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Status</label>
+          <select [(ngModel)]="editing()!.status" name="status"
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none">
+            <option>Live</option><option>In Progress</option><option>Open source</option><option>Internal</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Year</label>
+          <input [(ngModel)]="editing()!.year" name="year"
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none focus:border-neutral-500">
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Live URL</label>
+          <input [(ngModel)]="editing()!.live" name="live"
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none focus:border-neutral-500">
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-neutral-500 mb-1.5">GitHub repo</label>
+          <input [(ngModel)]="editing()!.repo" name="repo"
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none focus:border-neutral-500">
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-neutral-500 mb-1.5">Tech stack (press Enter to add)</label>
+          <div class="flex flex-wrap gap-1.5 mb-2">
+            @for (tag of editing()!.stack; track tag) {
+              <span class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded bg-neutral-700 text-neutral-300">
+                {{ tag }}
+                <button type="button" (click)="removeTag(tag)" class="text-neutral-500 hover:text-red-400">×</button>
+              </span>
+            }
+          </div>
+          <input type="text" (keydown)="addTag($event)" placeholder="e.g. Angular"
+            class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-neutral-100 focus:outline-none focus:border-neutral-500">
+        </div>
+        <div class="flex items-center gap-2 pt-6">
+          <input type="checkbox" [(ngModel)]="editing()!.featured" id="featured" name="featured"
+            class="w-4 h-4 rounded">
+          <label for="featured" class="text-sm text-neutral-300">Featured project</label>
+        </div>
+      </div>
+
+      <div class="flex gap-3 mt-6 pt-6 border-t border-neutral-800">
+        <button (click)="save()" [disabled]="saving()"
+          class="px-4 py-2 rounded-lg text-sm font-medium text-white disabled:opacity-50"
+          style="background: var(--accent)">
+          {{ saving() ? 'Saving...' : 'Save project' }}
+        </button>
+        <button (click)="cancel()"
+          class="px-4 py-2 rounded-lg text-sm text-neutral-400 hover:text-neutral-100 border border-neutral-700 transition-colors">
+          Cancel
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- List -->
+  <div class="flex flex-col gap-3">
+    @for (project of portfolio.projects(); track project._id) {
+      <div class="card flex items-center justify-between gap-4">
+        <div class="flex items-center gap-4 min-w-0">
+          <span class="font-mono text-xs text-neutral-600 flex-shrink-0">{{ project.idx }}</span>
+          <div class="min-w-0">
+            <p class="text-sm font-medium text-neutral-100 truncate">{{ project.title }}</p>
+            <p class="text-xs text-neutral-500 truncate">{{ project.category }} · {{ project.year }}</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <button (click)="startEdit(project)"
+            class="px-3 py-1.5 text-xs rounded-lg border border-neutral-700 text-neutral-400 hover:text-neutral-100 hover:border-neutral-500 transition-colors">
+            Edit
+          </button>
+          <button (click)="delete(project._id!)"
+            class="px-3 py-1.5 text-xs rounded-lg border border-neutral-700 text-red-500 hover:bg-red-500/10 transition-colors">
+            Delete
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<footer class="border-t border-base bg-surface py-12 px-6 md:px-12">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <span class="font-mono text-sm text-faint">
+      &copy; {{ year }} {{ portfolio.identity().name }}. Built with Angular 21.
+    </span>
+    <div class="flex items-center gap-6">
+      <a [href]="'https://' + portfolio.identity().github" target="_blank" rel="noopener"
+        class="text-sm text-muted hover:text-primary transition-colors">GitHub</a>
+      <a [href]="'https://' + portfolio.identity().linkedin" target="_blank" rel="noopener"
+        class="text-sm text-muted hover:text-primary transition-colors">LinkedIn</a>
+      <a [href]="'mailto:' + portfolio.identity().email"
+        class="text-sm text-muted hover:text-primary transition-colors">Email</a>
+    </div>
+  </div>
+</footer>
