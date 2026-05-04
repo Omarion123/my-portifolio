@@ -611,6 +611,73 @@ textarea.field { min-height: 96px; resize: vertical; line-height: 1.5; }
 .form-actions { display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid var(--line); }
 .form-hint { color: var(--fg-dim); font-family: var(--f-mono); font-size: 11px; }
 
+/* ── ADMIN LOGIN ── */
+.admin-login {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  overflow: hidden;
+}
+.login-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.login-grid {
+  position: absolute;
+  inset: -50%;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 0%, transparent 70%);
+}
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  background: var(--bg-elev);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.login-head { display: flex; align-items: center; gap: 14px; }
+.login-mark {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.login-mark span {
+  width: 16px; height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+.login-head h1 {
+  font-family: var(--f-display);
+  font-size: 28px;
+  font-weight: 400;
+  margin: 2px 0 0;
+  letter-spacing: -0.02em;
+}
+.login-form { display: flex; flex-direction: column; gap: 14px; }
+.login-form .btn { justify-content: center; margin-top: 4px; }
+.login-error { color: var(--bad); font-size: 13px; margin: 0; }
+.login-fine {
+  color: var(--fg-dim);
+  text-align: center;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+.login-back { align-self: center; }
+
 /* ── FOOTER ── */
 .foot { padding: 80px 0 32px; }
 .foot-inner { display: flex; flex-direction: column; gap: 48px; }
