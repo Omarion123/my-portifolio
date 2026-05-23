@@ -25,6 +25,6 @@ export async function deleteProject(req: Request, res: Response): Promise<void> 
 export async function bulkReplaceProjects(req: Request, res: Response): Promise<void> {
   const items: Array<Record<string, unknown>> = req.body;
   await Project.deleteMany({});
-  const created = await Project.insertMany(items.map((p, i) => ({ ...p, order: i })));
+  const created = await Project.insertMany(items.map(({ _id, ...p }, i) => ({ ...p, order: i })));
   res.json(created);
 }

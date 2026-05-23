@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PortfolioService } from '../../../core/services/portfolio.service';
 import { Project } from '../../../shared/models/portfolio.models';
 
@@ -10,6 +11,7 @@ import { Project } from '../../../shared/models/portfolio.models';
 })
 export class AdminProjectsComponent {
   portfolio = inject(PortfolioService);
+  private toast = inject(ToastrService);
   editing = signal<Project | null>(null);
   saving = signal(false);
 
@@ -50,8 +52,17 @@ export class AdminProjectsComponent {
       : [...projects, { ...p, _id: Date.now().toString() }];
 
     this.portfolio.saveProjects(updated).subscribe({
-      next: () => { this.saving.set(false); this.editing.set(null); },
-      error: () => { this.portfolio.updateSection('projects', updated); this.saving.set(false); this.editing.set(null); },
+      next: () => {
+        this.saving.set(false);
+        this.editing.set(null);
+        this.toast.success('Project saved');
+      },
+      error: () => {
+        this.portfolio.updateSection('projects', updated);
+        this.saving.set(false);
+        this.editing.set(null);
+        this.toast.error('Failed to save project');
+      },
     });
   }
 
@@ -59,7 +70,11 @@ export class AdminProjectsComponent {
     if (!confirm('Delete this project?')) return;
     const updated = this.portfolio.projects().filter(p => p._id !== id);
     this.portfolio.saveProjects(updated).subscribe({
-      error: () => this.portfolio.updateSection('projects', updated),
+      next: () => this.toast.success('Project deleted'),
+      error: () => {
+        this.portfolio.updateSection('projects', updated);
+        this.toast.error('Failed to delete project');
+      },
     });
   }
 }

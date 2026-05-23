@@ -34,6 +34,6 @@ export async function deletePost(req: Request, res: Response): Promise<void> {
 export async function bulkReplacePosts(req: Request, res: Response): Promise<void> {
   const items: Array<Record<string, unknown>> = req.body;
   await BlogPost.deleteMany({});
-  const created = await BlogPost.insertMany(items);
+  const created = await BlogPost.insertMany(items.map(({ _id, ...p }) => p));
   res.json(created);
 }

@@ -4,7 +4,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import {
   PortfolioData, Project, SkillGroup, Experience,
-  Education, Certification, BlogPost
+  Education, Certification, BlogPost, Identity
 } from '../../shared/models/portfolio.models';
 import { environment } from '../../../environments/environment';
 
@@ -94,38 +94,50 @@ export class PortfolioService {
   }
 
   saveProjects(projects: Project[]) {
-    return this.http.put(`${this.api}/projects`, projects).pipe(
-      tap(() => this.updateSection('projects', projects))
+    return this.http.put<Project[]>(`${this.api}/projects`, projects).pipe(
+      tap(saved => this.updateSection('projects', saved))
     );
   }
 
   saveSkills(skills: SkillGroup[]) {
-    return this.http.put(`${this.api}/skills`, skills).pipe(
-      tap(() => this.updateSection('skills', skills))
+    return this.http.put<SkillGroup[]>(`${this.api}/skills`, skills).pipe(
+      tap(saved => this.updateSection('skills', saved))
     );
   }
 
   saveExperience(experience: Experience[]) {
-    return this.http.put(`${this.api}/experience`, experience).pipe(
-      tap(() => this.updateSection('experience', experience))
+    return this.http.put<Experience[]>(`${this.api}/experience`, experience).pipe(
+      tap(saved => this.updateSection('experience', saved))
     );
   }
 
   saveEducation(education: Education[]) {
-    return this.http.put(`${this.api}/education`, education).pipe(
-      tap(() => this.updateSection('education', education))
+    return this.http.put<Education[]>(`${this.api}/education`, education).pipe(
+      tap(saved => this.updateSection('education', saved))
     );
   }
 
   saveCertifications(certs: Certification[]) {
-    return this.http.put(`${this.api}/certifications`, certs).pipe(
-      tap(() => this.updateSection('certifications', certs))
+    return this.http.put<Certification[]>(`${this.api}/certifications`, certs).pipe(
+      tap(saved => this.updateSection('certifications', saved))
     );
   }
 
   savePosts(posts: BlogPost[]) {
-    return this.http.put(`${this.api}/posts`, posts).pipe(
-      tap(() => this.updateSection('posts', posts))
+    return this.http.put<BlogPost[]>(`${this.api}/posts`, posts).pipe(
+      tap(saved => this.updateSection('posts', saved))
     );
+  }
+
+  saveIdentity(identity: Identity) {
+    return this.http.put(`${this.api}/identity`, identity).pipe(
+      tap(() => this.updateSection('identity', identity))
+    );
+  }
+
+  uploadImage(file: File) {
+    const form = new FormData();
+    form.append('image', file);
+    return this.http.post<{ url: string; publicId: string }>(`${this.api}/upload/image`, form);
   }
 }

@@ -1,0 +1,102 @@
+<div class="adm-page">
+
+  <div class="adm-page-head">
+    <div>
+      <h1>Profile &amp; Identity</h1>
+      <p class="adm-page-sub">Update your profile picture, name, title, and public info.</p>
+    </div>
+  </div>
+
+  <div class="card adm-form" style="max-width: 640px;">
+
+    <!-- Profile picture -->
+    <div>
+      <label class="field-label">Profile picture</label>
+      <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
+        @if (form().profileImage) {
+          <img [src]="form().profileImage" alt="Profile"
+               style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--border);">
+        } @else {
+          <div style="width:80px; height:80px; border-radius:50%; background:var(--surface-2); display:flex; align-items:center; justify-content:center; border:2px solid var(--border); color:var(--text-muted); font-size:1.75rem;">
+            &#128100;
+          </div>
+        }
+        <div>
+          <label class="btn btn-secondary" style="cursor:pointer;">
+            @if (uploading()) { Uploading… } @else { Choose image }
+            <input type="file" accept="image/*" style="display:none;"
+                   (change)="onFileSelected($event)" [disabled]="uploading()">
+          </label>
+          @if (form().profileImage) {
+            <p style="font-size:.8rem; color:var(--text-muted); margin-top:.375rem; word-break:break-all; max-width:320px;">{{ form().profileImage }}</p>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Name -->
+    <div>
+      <label class="field-label">Name</label>
+      <input class="field" name="name" [ngModel]="form().name"
+             (ngModelChange)="form.update(f => ({ ...f, name: $event }))">
+    </div>
+
+    <!-- Title -->
+    <div>
+      <label class="field-label">Title</label>
+      <input class="field" name="title" [ngModel]="form().title"
+             (ngModelChange)="form.update(f => ({ ...f, title: $event }))">
+    </div>
+
+    <!-- Tagline -->
+    <div>
+      <label class="field-label">Tagline</label>
+      <input class="field" name="tagline" [ngModel]="form().tagline"
+             (ngModelChange)="form.update(f => ({ ...f, tagline: $event }))">
+    </div>
+
+    <!-- Location -->
+    <div>
+      <label class="field-label">Location</label>
+      <input class="field" name="location" [ngModel]="form().location"
+             (ngModelChange)="form.update(f => ({ ...f, location: $event }))">
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label class="field-label">Email</label>
+      <input class="field" type="email" name="email" [ngModel]="form().email"
+             (ngModelChange)="form.update(f => ({ ...f, email: $event }))">
+    </div>
+
+    <!-- GitHub -->
+    <div>
+      <label class="field-label">GitHub URL</label>
+      <input class="field" name="github" [ngModel]="form().github"
+             (ngModelChange)="form.update(f => ({ ...f, github: $event }))">
+    </div>
+
+    <!-- LinkedIn -->
+    <div>
+      <label class="field-label">LinkedIn URL</label>
+      <input class="field" name="linkedin" [ngModel]="form().linkedin"
+             (ngModelChange)="form.update(f => ({ ...f, linkedin: $event }))">
+    </div>
+
+    <!-- Available -->
+    <div class="adm-check">
+      <input type="checkbox" id="available" name="available"
+             [ngModel]="form().available"
+             (ngModelChange)="form.update(f => ({ ...f, available: $event }))">
+      <label for="available">Available for opportunities</label>
+    </div>
+
+    <div class="adm-drawer-foot">
+      <button (click)="save()" class="btn btn-primary" [disabled]="saving() || uploading()">
+        {{ saving() ? 'Saving…' : 'Save changes' }}
+      </button>
+    </div>
+
+  </div>
+
+</div>

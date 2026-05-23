@@ -23,6 +23,7 @@ export async function getPortfolio(_req: Request, res: Response): Promise<void> 
       name: identity.name, title: identity.title, location: identity.location,
       tagline: identity.tagline, email: identity.email, github: identity.github,
       linkedin: identity.linkedin, available: identity.available,
+      profileImage: identity.profileImage,
     } : {},
     about: identity ? {
       paragraphs: identity.aboutParagraphs,

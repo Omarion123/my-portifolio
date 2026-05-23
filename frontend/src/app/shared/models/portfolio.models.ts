@@ -7,6 +7,7 @@ export interface Identity {
   github: string;
   linkedin: string;
   available: boolean;
+  profileImage?: string;
 }
 
 export interface About {

@@ -10,10 +10,21 @@ function useReveal() {
   return ref;
 }
 
-function Reveal({ children, delay = 0, as: As = "div", className = "", ...rest }) {
+function Reveal({
+  children,
+  delay = 0,
+  as: As = "div",
+  className = "",
+  ...rest
+}) {
   const ref = useReveal();
   return (
-    <As ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }} {...rest}>
+    <As
+      ref={ref}
+      className={`reveal ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+      {...rest}
+    >
       {children}
     </As>
   );
@@ -42,7 +53,10 @@ function Nav({ data, theme, onTheme, route, onRoute }) {
   return (
     <nav className={`nav ${scrolled ? "nav-scrolled" : ""}`}>
       <div className="wrap nav-inner">
-        <button className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+        <button
+          className="nav-brand"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
           <span className="nav-mark" aria-hidden>
             <span className="nav-mark-dot" />
           </span>
@@ -58,7 +72,12 @@ function Nav({ data, theme, onTheme, route, onRoute }) {
           ))}
         </div>
         <div className="nav-actions">
-          <button className="nav-icon" onClick={onTheme} aria-label="Toggle theme" title="Toggle theme">
+          <button
+            className="nav-icon"
+            onClick={onTheme}
+            aria-label="Toggle theme"
+            title="Toggle theme"
+          >
             {theme === "dark" ? "☾" : "☀"}
           </button>
           <button className="btn btn-sm" onClick={() => onRoute("admin")}>
@@ -77,7 +96,11 @@ function Hero({ data }) {
     const t = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(t);
   }, []);
-  const time = now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  const time = now.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 
   return (
     <header className="hero">
@@ -85,8 +108,12 @@ function Hero({ data }) {
       <div className="hero-glow" aria-hidden />
       <div className="wrap hero-inner">
         <Reveal className="hero-meta mono">
-          <span><span className="dot live" /> Available for new work · Q3 2026</span>
-          <span>{data.identity.location} · {time} local</span>
+          <span>
+            <span className="dot live" /> Available for new work · Q3 2026
+          </span>
+          <span>
+            {data.identity.location} · {time} local
+          </span>
         </Reveal>
 
         <Reveal delay={80} className="hero-title">
@@ -108,13 +135,21 @@ function Hero({ data }) {
         <Reveal delay={260} className="hero-cta">
           <button
             className="btn btn-primary"
-            onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() =>
+              document
+                .getElementById("work")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
           >
             View selected work <span aria-hidden>→</span>
           </button>
           <button
             className="btn"
-            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() =>
+              document
+                .getElementById("contact")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
           >
             Get in touch
           </button>
@@ -140,12 +175,18 @@ function Hero({ data }) {
         <div className="marquee-track">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="marquee-row">
-              <span>Realtime systems</span><span>·</span>
-              <span>Frontend platform</span><span>·</span>
-              <span>Distributed data</span><span>·</span>
-              <span>Developer experience</span><span>·</span>
-              <span>Honest UX</span><span>·</span>
-              <span>Boring infrastructure</span><span>·</span>
+              <span>Realtime systems</span>
+              <span>·</span>
+              <span>Frontend platform</span>
+              <span>·</span>
+              <span>Distributed data</span>
+              <span>·</span>
+              <span>Developer experience</span>
+              <span>·</span>
+              <span>Honest UX</span>
+              <span>·</span>
+              <span>Boring infrastructure</span>
+              <span>·</span>
             </span>
           ))}
         </div>
@@ -190,7 +231,9 @@ function About({ data }) {
               <ul>
                 {data.about.focus.map((f, i) => (
                   <li key={f}>
-                    <span className="focus-num mono">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="focus-num mono">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     <span>{f}</span>
                   </li>
                 ))}
@@ -221,7 +264,10 @@ function Projects({ data }) {
   const [active, setActive] = useState("All");
   const [hover, setHover] = useState(null);
 
-  const list = active === "All" ? data.projects : data.projects.filter((p) => p.category === active);
+  const list =
+    active === "All"
+      ? data.projects
+      : data.projects.filter((p) => p.category === active);
 
   return (
     <section id="work" className="section section-work">
@@ -245,17 +291,25 @@ function Projects({ data }) {
               </button>
             ))}
           </div>
-          <span className="mono proj-count">{list.length.toString().padStart(2, "0")} shown</span>
+          <span className="mono proj-count">
+            {list.length.toString().padStart(2, "0")} shown
+          </span>
         </Reveal>
 
         <div className="proj-list" onMouseLeave={() => setHover(null)}>
           {list.map((p, i) => (
             <Reveal key={p.id} delay={i * 60}>
-              <ProjectRow p={p} hovered={hover === p.id} onHover={() => setHover(p.id)} />
+              <ProjectRow
+                p={p}
+                hovered={hover === p.id}
+                onHover={() => setHover(p.id)}
+              />
             </Reveal>
           ))}
           {list.length === 0 && (
-            <div className="proj-empty mono">No projects in this category yet.</div>
+            <div className="proj-empty mono">
+              No projects in this category yet.
+            </div>
           )}
         </div>
       </div>
@@ -265,19 +319,26 @@ function Projects({ data }) {
 
 function ProjectRow({ p, hovered, onHover }) {
   return (
-    <article className={`proj-row ${hovered ? "proj-row-hover" : ""}`} onMouseEnter={onHover}>
+    <article
+      className={`proj-row ${hovered ? "proj-row-hover" : ""}`}
+      onMouseEnter={onHover}
+    >
       <div className="proj-row-idx mono">{p.idx}</div>
       <div className="proj-row-main">
         <div className="proj-row-top">
           <h3 className="proj-row-title">{p.title}</h3>
-          <span className={`proj-row-status mono status-${p.status.toLowerCase().replace(/\s/g, "-")}`}>
+          <span
+            className={`proj-row-status mono status-${p.status.toLowerCase().replace(/\s/g, "-")}`}
+          >
             <span className="dot" /> {p.status}
           </span>
         </div>
         <p className="proj-row-blurb">{p.blurb}</p>
         <div className="proj-row-stack">
           {p.stack.map((s) => (
-            <span key={s} className="stack-tag">{s}</span>
+            <span key={s} className="stack-tag">
+              {s}
+            </span>
           ))}
         </div>
       </div>
@@ -288,12 +349,20 @@ function ProjectRow({ p, hovered, onHover }) {
         </div>
         <div className="proj-row-links">
           {p.live && (
-            <a className="proj-link" href={p.live} onClick={(e) => e.preventDefault()}>
+            <a
+              className="proj-link"
+              href={p.live}
+              onClick={(e) => e.preventDefault()}
+            >
               Live <span aria-hidden>↗</span>
             </a>
           )}
           {p.repo && (
-            <a className="proj-link" href={`https://${p.repo}`} onClick={(e) => e.preventDefault()}>
+            <a
+              className="proj-link"
+              href={`https://${p.repo}`}
+              onClick={(e) => e.preventDefault()}
+            >
               Code <span aria-hidden>↗</span>
             </a>
           )}
@@ -302,7 +371,9 @@ function ProjectRow({ p, hovered, onHover }) {
       <div className="proj-row-preview" aria-hidden>
         <div className="preview-frame">
           <div className="preview-stripes" />
-          <span className="mono preview-tag">{p.title.toLowerCase().replace(/\s/g, "-")}.png</span>
+          <span className="mono preview-tag">
+            {p.title.toLowerCase().replace(/\s/g, "-")}.png
+          </span>
         </div>
       </div>
     </article>
@@ -318,7 +389,7 @@ function Skills({ data }) {
     if (!el) return;
     const io = new IntersectionObserver(
       (es) => es.forEach((e) => e.isIntersecting && setShown(true)),
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -344,7 +415,9 @@ function Skills({ data }) {
                   <li key={s.name} className="skill-item">
                     <div className="skill-row">
                       <span>{s.name}</span>
-                      <span className="mono skill-pct">{shown ? s.level : 0}</span>
+                      <span className="mono skill-pct">
+                        {shown ? s.level : 0}
+                      </span>
                     </div>
                     <div className="skill-bar">
                       <div
@@ -429,7 +502,9 @@ function EduCerts({ data }) {
             <div className="edu-list">
               {data.education.map((e, i) => (
                 <Reveal key={e.id} delay={i * 80} className="edu-item">
-                  <div className="edu-years mono">{e.from}–{e.to}</div>
+                  <div className="edu-years mono">
+                    {e.from}–{e.to}
+                  </div>
                   <h3 className="edu-degree">{e.degree}</h3>
                   <div className="edu-org">{e.org}</div>
                   <p className="edu-note">{e.note}</p>
@@ -447,8 +522,23 @@ function EduCerts({ data }) {
                 <Reveal key={c.id} delay={i * 80} className="cert-item card">
                   <div className="cert-badge" aria-hidden>
                     <svg viewBox="0 0 40 40" width="32" height="32">
-                      <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" strokeWidth="1.2" />
-                      <circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.5" />
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="14"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                      />
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="9"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="0.8"
+                        opacity="0.5"
+                      />
                       <circle cx="20" cy="20" r="3" fill="currentColor" />
                     </svg>
                   </div>
@@ -483,7 +573,11 @@ function Blog({ data }) {
         <div className="blog-list">
           {data.posts.map((p, i) => (
             <Reveal key={p.id} delay={i * 80}>
-              <a className="blog-row" href="#" onClick={(e) => e.preventDefault()}>
+              <a
+                className="blog-row"
+                href="#"
+                onClick={(e) => e.preventDefault()}
+              >
                 <div className="blog-date mono">{p.date}</div>
                 <div className="blog-main">
                   <h3 className="blog-title">{p.title}</h3>
@@ -492,7 +586,9 @@ function Blog({ data }) {
                 <div className="blog-meta">
                   <span className="chip">{p.tag}</span>
                   <span className="mono blog-read">{p.readMin} min</span>
-                  <span className="blog-arrow" aria-hidden>→</span>
+                  <span className="blog-arrow" aria-hidden>
+                    →
+                  </span>
                 </div>
               </a>
             </Reveal>
@@ -505,7 +601,12 @@ function Blog({ data }) {
 
 // ─── Contact ────────────────────────────────────────────────────────────────
 function Contact({ data }) {
-  const [form, setForm] = useState({ name: "", email: "", topic: "Project", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    topic: "Project",
+    message: "",
+  });
   const [sent, setSent] = useState(false);
   const submit = (e) => {
     e.preventDefault();
@@ -529,15 +630,34 @@ function Contact({ data }) {
           <Reveal className="contact-aside">
             <div className="contact-block">
               <span className="mono">Email</span>
-              <a className="ulink contact-big" href={`mailto:${data.identity.email}`}>
+              <a
+                className="ulink contact-big"
+                href={`mailto:${data.identity.email}`}
+              >
                 {data.identity.email}
               </a>
             </div>
             <div className="contact-block">
               <span className="mono">Elsewhere</span>
               <ul className="contact-links">
-                <li><a className="ulink" href={`https://${data.identity.github}`} onClick={(e) => e.preventDefault()}>{data.identity.github} ↗</a></li>
-                <li><a className="ulink" href={`https://${data.identity.linkedin}`} onClick={(e) => e.preventDefault()}>{data.identity.linkedin} ↗</a></li>
+                <li>
+                  <a
+                    className="ulink"
+                    href={`https://${data.identity.github}`}
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    {data.identity.github} ↗
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="ulink"
+                    href={`https://${data.identity.linkedin}`}
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    {data.identity.linkedin} ↗
+                  </a>
+                </li>
               </ul>
             </div>
             <div className="contact-block">
@@ -553,11 +673,25 @@ function Contact({ data }) {
               <div className="form-row form-row-2">
                 <div>
                   <label className="field-label">Your name</label>
-                  <input className="field" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Ada Lovelace" />
+                  <input
+                    className="field"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    placeholder="Ada Lovelace"
+                  />
                 </div>
                 <div>
                   <label className="field-label">Email *</label>
-                  <input className="field" type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="ada@example.com" />
+                  <input
+                    className="field"
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={(e) =>
+                      setForm({ ...form, email: e.target.value })
+                    }
+                    placeholder="ada@example.com"
+                  />
                 </div>
               </div>
               <div>
@@ -577,11 +711,25 @@ function Contact({ data }) {
               </div>
               <div>
                 <label className="field-label">Message *</label>
-                <textarea className="field" required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="What are you working on?" />
+                <textarea
+                  className="field"
+                  required
+                  value={form.message}
+                  onChange={(e) =>
+                    setForm({ ...form, message: e.target.value })
+                  }
+                  placeholder="What are you working on?"
+                />
               </div>
               <div className="form-actions">
-                <span className="mono form-hint">{form.message.length} / 1000</span>
-                <button type="submit" className="btn btn-primary" disabled={sent}>
+                <span className="mono form-hint">
+                  {form.message.length} / 1000
+                </span>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={sent}
+                >
                   {sent ? "Sent ✓" : "Send message →"}
                 </button>
               </div>
@@ -600,7 +748,9 @@ function Footer({ data }) {
       <div className="wrap foot-inner">
         <div className="foot-big">
           <span>{data.identity.name.split(" ")[0]}.</span>
-          <span className="foot-big-dim">{data.identity.name.split(" ").slice(1).join(" ")}</span>
+          <span className="foot-big-dim">
+            {data.identity.name.split(" ").slice(1).join(" ")}
+          </span>
         </div>
         <div className="foot-cols">
           <div>
@@ -609,7 +759,9 @@ function Footer({ data }) {
           </div>
           <div>
             <span className="mono">Email</span>
-            <a className="ulink" href={`mailto:${data.identity.email}`}>{data.identity.email}</a>
+            <a className="ulink" href={`mailto:${data.identity.email}`}>
+              {data.identity.email}
+            </a>
           </div>
           <div>
             <span className="mono">Year</span>
@@ -617,12 +769,28 @@ function Footer({ data }) {
           </div>
         </div>
         <div className="foot-fine mono">
-          <span>Designed and built by hand · No analytics · v2.4.1</span>
-          <button className="ulink" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>Back to top ↑</button>
+          <button
+            className="ulink"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Back to top ↑
+          </button>
         </div>
       </div>
     </footer>
   );
 }
 
-Object.assign(window, { Nav, Hero, About, Projects, Skills, Experience, EduCerts, Blog, Contact, Footer, Reveal });
+Object.assign(window, {
+  Nav,
+  Hero,
+  About,
+  Projects,
+  Skills,
+  Experience,
+  EduCerts,
+  Blog,
+  Contact,
+  Footer,
+  Reveal,
+});

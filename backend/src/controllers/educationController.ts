@@ -8,6 +8,6 @@ export async function getEducation(_req: Request, res: Response): Promise<void> 
 export async function bulkReplaceEducation(req: Request, res: Response): Promise<void> {
   const items: Array<Record<string, unknown>> = req.body;
   await Education.deleteMany({});
-  const created = await Education.insertMany(items.map((e, i) => ({ ...e, order: i })));
+  const created = await Education.insertMany(items.map(({ _id, ...e }, i) => ({ ...e, order: i })));
   res.json(created);
 }

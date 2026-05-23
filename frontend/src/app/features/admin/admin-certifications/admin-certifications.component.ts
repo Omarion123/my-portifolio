@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PortfolioService } from '../../../core/services/portfolio.service';
 import { Certification } from '../../../shared/models/portfolio.models';
 
@@ -10,6 +11,7 @@ import { Certification } from '../../../shared/models/portfolio.models';
 })
 export class AdminCertificationsComponent {
   portfolio = inject(PortfolioService);
+  private toast = inject(ToastrService);
   editing: Certification | null = null;
 
   startNew() { this.editing = { name: '', org: '', year: '' }; }
@@ -24,7 +26,11 @@ export class AdminCertificationsComponent {
       ? list.map((c, i) => i === idx ? this.editing! : c)
       : [...list, { ...this.editing!, _id: Date.now().toString() }];
     this.portfolio.saveCertifications(updated).subscribe({
-      error: () => this.portfolio.updateSection('certifications', updated),
+      next: () => this.toast.success('Certification saved'),
+      error: () => {
+        this.portfolio.updateSection('certifications', updated);
+        this.toast.error('Failed to save certification');
+      },
     });
     this.editing = null;
   }
@@ -33,7 +39,11 @@ export class AdminCertificationsComponent {
     if (!confirm('Delete?')) return;
     const updated = this.portfolio.certifications().filter(c => c._id !== id);
     this.portfolio.saveCertifications(updated).subscribe({
-      error: () => this.portfolio.updateSection('certifications', updated),
+      next: () => this.toast.success('Certification deleted'),
+      error: () => {
+        this.portfolio.updateSection('certifications', updated);
+        this.toast.error('Failed to delete certification');
+      },
     });
   }
 }

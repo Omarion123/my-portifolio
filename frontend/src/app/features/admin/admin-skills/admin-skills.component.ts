@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PortfolioService } from '../../../core/services/portfolio.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { PortfolioService } from '../../../core/services/portfolio.service';
 })
 export class AdminSkillsComponent {
   portfolio = inject(PortfolioService);
+  private toast = inject(ToastrService);
 
   addSkill(groupIdx: number, name: string, level: number) {
     const skills = [...this.portfolio.skills()];
@@ -31,6 +33,9 @@ export class AdminSkillsComponent {
   }
 
   save() {
-    this.portfolio.saveSkills(this.portfolio.skills()).subscribe();
+    this.portfolio.saveSkills(this.portfolio.skills()).subscribe({
+      next: () => this.toast.success('Skills saved'),
+      error: () => this.toast.error('Failed to save skills'),
+    });
   }
 }

@@ -31,7 +31,10 @@
       "Bash(node *)",
       "Bash(git -C \"C:/Users/OmarKarake/OneDrive - AmaliTech gGmbH/Desktop/Projects/portifolio\" status)",
       "Bash(git -C \"C:/Users/OmarKarake/OneDrive - AmaliTech gGmbH/Desktop/Projects/portifolio\" diff --stat)",
-      "Bash(git *)"
+      "Bash(git *)",
+      "Bash(Select-Object Name, Mode)",
+      "Bash(xargs grep -l \"multer\\\\|upload\\\\|image\\\\|file\")",
+      "Bash(Test-Path *)"
     ]
   }
 }

@@ -9,6 +9,7 @@ export interface IIdentity extends Document {
   github: string;
   linkedin: string;
   available: boolean;
+  profileImage: string;
   aboutParagraphs: string[];
   aboutFocus: string[];
   aboutStats: { k: string; v: string }[];
@@ -23,6 +24,7 @@ const identitySchema = new Schema<IIdentity>({
   github:           { type: String, default: '' },
   linkedin:         { type: String, default: '' },
   available:        { type: Boolean, default: true },
+  profileImage:     { type: String, default: '' },
   aboutParagraphs:  [{ type: String }],
   aboutFocus:       [{ type: String }],
   aboutStats:       [{ k: String, v: String }],

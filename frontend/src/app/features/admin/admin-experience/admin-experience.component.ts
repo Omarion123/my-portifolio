@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PortfolioService } from '../../../core/services/portfolio.service';
 import { Experience } from '../../../shared/models/portfolio.models';
 
@@ -10,6 +11,7 @@ import { Experience } from '../../../shared/models/portfolio.models';
 })
 export class AdminExperienceComponent {
   portfolio = inject(PortfolioService);
+  private toast = inject(ToastrService);
   editing: Experience | null = null;
 
   startNew() {
@@ -31,7 +33,11 @@ export class AdminExperienceComponent {
       ? list.map((e, i) => i === idx ? this.editing! : e)
       : [...list, { ...this.editing!, _id: Date.now().toString() }];
     this.portfolio.saveExperience(updated).subscribe({
-      error: () => this.portfolio.updateSection('experience', updated),
+      next: () => this.toast.success('Experience saved'),
+      error: () => {
+        this.portfolio.updateSection('experience', updated);
+        this.toast.error('Failed to save experience');
+      },
     });
     this.editing = null;
   }
@@ -40,7 +46,11 @@ export class AdminExperienceComponent {
     if (!confirm('Delete this entry?')) return;
     const updated = this.portfolio.experience().filter(e => e._id !== id);
     this.portfolio.saveExperience(updated).subscribe({
-      error: () => this.portfolio.updateSection('experience', updated),
+      next: () => this.toast.success('Entry deleted'),
+      error: () => {
+        this.portfolio.updateSection('experience', updated);
+        this.toast.error('Failed to delete entry');
+      },
     });
   }
 }

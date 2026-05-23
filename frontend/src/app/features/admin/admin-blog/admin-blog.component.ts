@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PortfolioService } from '../../../core/services/portfolio.service';
 import { BlogPost } from '../../../shared/models/portfolio.models';
 
@@ -10,10 +11,15 @@ import { BlogPost } from '../../../shared/models/portfolio.models';
 })
 export class AdminBlogComponent {
   portfolio = inject(PortfolioService);
+  private toast = inject(ToastrService);
   editing: BlogPost | null = null;
 
   startNew() {
-    this.editing = { title: '', excerpt: '', date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }), readMin: 5, tag: 'General', content: '', published: false };
+    this.editing = {
+      title: '', excerpt: '',
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      readMin: 5, tag: 'General', content: '', published: false,
+    };
   }
 
   startEdit(p: BlogPost) { this.editing = { ...p }; }
@@ -27,7 +33,11 @@ export class AdminBlogComponent {
       ? list.map((p, i) => i === idx ? this.editing! : p)
       : [...list, { ...this.editing!, _id: Date.now().toString() }];
     this.portfolio.savePosts(updated).subscribe({
-      error: () => this.portfolio.updateSection('posts', updated),
+      next: () => this.toast.success('Post saved'),
+      error: () => {
+        this.portfolio.updateSection('posts', updated);
+        this.toast.error('Failed to save post');
+      },
     });
     this.editing = null;
   }
@@ -36,7 +46,11 @@ export class AdminBlogComponent {
     if (!confirm('Delete post?')) return;
     const updated = this.portfolio.posts().filter(p => p._id !== id);
     this.portfolio.savePosts(updated).subscribe({
-      error: () => this.portfolio.updateSection('posts', updated),
+      next: () => this.toast.success('Post deleted'),
+      error: () => {
+        this.portfolio.updateSection('posts', updated);
+        this.toast.error('Failed to delete post');
+      },
     });
   }
 }

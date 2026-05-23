@@ -13,6 +13,8 @@ import educationRoutes from './routes/education';
 import certificationsRoutes from './routes/certifications';
 import blogRoutes from './routes/blog';
 import contactRoutes from './routes/contact';
+import uploadRoutes from './routes/upload';
+import identityRoutes from './routes/identity';
 
 const app = express();
 const PORT = Number(process.env.PORT ?? 3000);
@@ -37,6 +39,8 @@ app.use('/api/education',      educationRoutes);
 app.use('/api/certifications', certificationsRoutes);
 app.use('/api/posts',          blogRoutes);
 app.use('/api/contact',        contactRoutes);
+app.use('/api/upload',         uploadRoutes);
+app.use('/api/identity',       identityRoutes);
 
 // Health check
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));

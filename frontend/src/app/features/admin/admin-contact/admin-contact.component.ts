@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PortfolioService } from '../../../core/services/portfolio.service';
 
 @Component({
@@ -9,11 +10,12 @@ import { PortfolioService } from '../../../core/services/portfolio.service';
 })
 export class AdminContactComponent {
   portfolio = inject(PortfolioService);
-  saved = false;
+  private toast = inject(ToastrService);
 
   save() {
-    this.portfolio.saveExperience(this.portfolio.experience()).subscribe({
-      next: () => { this.saved = true; setTimeout(() => this.saved = false, 2000); },
+    this.portfolio.saveIdentity(this.portfolio.identity()).subscribe({
+      next: () => this.toast.success('Contact info saved'),
+      error: () => this.toast.error('Failed to save contact info'),
     });
   }
 }

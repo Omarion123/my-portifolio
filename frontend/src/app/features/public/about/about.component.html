@@ -11,8 +11,13 @@
 
       <div [appReveal]="0" class="about-portrait">
         <div class="portrait-frame">
-          <div class="portrait-img" aria-label="Portrait placeholder">
-            <span class="mono portrait-tag">portrait.jpg · 4×5</span>
+          <div class="portrait-img" [attr.aria-label]="portfolio.identity().profileImage ? null : 'Portrait placeholder'">
+            @if (portfolio.identity().profileImage) {
+              <img [src]="portfolio.identity().profileImage" [alt]="portfolio.identity().name"
+                   style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+            } @else {
+              <span class="mono portrait-tag">portrait.jpg · 4×5</span>
+            }
           </div>
           <div class="portrait-meta">
             <span class="mono">{{ portfolio.identity().location }}</span>

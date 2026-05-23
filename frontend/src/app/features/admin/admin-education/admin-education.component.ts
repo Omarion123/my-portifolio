@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PortfolioService } from '../../../core/services/portfolio.service';
 import { Education } from '../../../shared/models/portfolio.models';
 
@@ -10,6 +11,7 @@ import { Education } from '../../../shared/models/portfolio.models';
 })
 export class AdminEducationComponent {
   portfolio = inject(PortfolioService);
+  private toast = inject(ToastrService);
   editing: Education | null = null;
 
   startNew() { this.editing = { degree: '', org: '', from: '', to: '', note: '' }; }
@@ -24,7 +26,11 @@ export class AdminEducationComponent {
       ? list.map((e, i) => i === idx ? this.editing! : e)
       : [...list, { ...this.editing!, _id: Date.now().toString() }];
     this.portfolio.saveEducation(updated).subscribe({
-      error: () => this.portfolio.updateSection('education', updated),
+      next: () => this.toast.success('Education saved'),
+      error: () => {
+        this.portfolio.updateSection('education', updated);
+        this.toast.error('Failed to save education');
+      },
     });
     this.editing = null;
   }
@@ -33,7 +39,11 @@ export class AdminEducationComponent {
     if (!confirm('Delete?')) return;
     const updated = this.portfolio.education().filter(e => e._id !== id);
     this.portfolio.saveEducation(updated).subscribe({
-      error: () => this.portfolio.updateSection('education', updated),
+      next: () => this.toast.success('Entry deleted'),
+      error: () => {
+        this.portfolio.updateSection('education', updated);
+        this.toast.error('Failed to delete entry');
+      },
     });
   }
 }

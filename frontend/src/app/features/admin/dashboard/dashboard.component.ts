@@ -11,6 +11,7 @@ export class DashboardComponent {
   portfolio = inject(PortfolioService);
 
   quickLinks = [
+    { label: 'Profile & Identity', path: '/admin/identity', emoji: '🪪' },
     { label: 'Manage Projects', path: '/admin/projects', emoji: '📁' },
     { label: 'Manage Skills', path: '/admin/skills', emoji: '⚡' },
     { label: 'Manage Experience', path: '/admin/experience', emoji: '💼' },

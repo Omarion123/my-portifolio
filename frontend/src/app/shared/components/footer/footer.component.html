@@ -1,9 +1,10 @@
 <footer class="foot">
   <div class="wrap foot-inner">
-
     <div class="foot-big">
       <span>{{ portfolio.identity().name.split(' ')[0] }}.</span>
-      <span class="foot-big-dim">{{ portfolio.identity().name.split(' ').slice(1).join(' ') }}</span>
+      <span class="foot-big-dim">{{
+        portfolio.identity().name.split(' ').slice(1).join(' ')
+      }}</span>
     </div>
 
     <div class="foot-cols">
@@ -24,9 +25,7 @@
     </div>
 
     <div class="foot-fine mono">
-      <span>Designed and built by hand · No analytics · Angular 21</span>
       <button class="ulink" (click)="scrollTop()">Back to top ↑</button>
     </div>
-
   </div>
 </footer>

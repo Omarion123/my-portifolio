@@ -37,6 +37,10 @@ export const ADMIN_ROUTES: Routes = [
         path: 'contact',
         loadComponent: () => import('./admin-contact/admin-contact.component').then(m => m.AdminContactComponent),
       },
+      {
+        path: 'identity',
+        loadComponent: () => import('./admin-identity/admin-identity.component').then(m => m.AdminIdentityComponent),
+      },
     ],
   },
 ];

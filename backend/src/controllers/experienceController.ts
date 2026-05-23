@@ -8,6 +8,6 @@ export async function getExperience(_req: Request, res: Response): Promise<void>
 export async function bulkReplaceExperience(req: Request, res: Response): Promise<void> {
   const items: Array<Record<string, unknown>> = req.body;
   await Experience.deleteMany({});
-  const created = await Experience.insertMany(items.map((e, i) => ({ ...e, order: i })));
+  const created = await Experience.insertMany(items.map(({ _id, ...e }, i) => ({ ...e, order: i })));
   res.json(created);
 }
