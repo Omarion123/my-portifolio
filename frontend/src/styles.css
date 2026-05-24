@@ -264,6 +264,16 @@ button {
   border-color: var(--accent);
   background: var(--bg-card);
 }
+.field--invalid {
+  border-color: var(--bad) !important;
+}
+.field-error {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--bad);
+  margin-top: 5px;
+}
 .field-label {
   display: block;
   font-family: var(--f-mono);

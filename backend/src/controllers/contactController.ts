@@ -20,16 +20,21 @@ export async function sendContact(req: Request, res: Response): Promise<void> {
     auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
   });
 
-  await transporter.sendMail({
-    from: `"Portfolio Contact" <${process.env.SMTP_FROM}>`,
-    to: toEmail,
-    replyTo: email,
-    subject: `Portfolio message from ${name}`,
-    text: message,
-    html: `<p><strong>${name}</strong> (${email}) says:</p><p>${message}</p>`,
-  });
-
-  res.json({ message: 'Message sent' });
+  try {
+    await transporter.sendMail({
+      from: `"Portfolio Contact" <${process.env.SMTP_FROM}>`,
+      to: toEmail,
+      replyTo: email,
+      subject: `Portfolio message from ${name}`,
+      text: message,
+      html: `<p><strong>${name}</strong> (${email}) says:</p><p>${message}</p>`,
+    });
+    res.json({ message: 'Message sent' });
+  } catch (err) {
+    console.error('[CONTACT] SMTP send failed:', err);
+    console.log(`[CONTACT] From: ${name} <${email}> — ${message}`);
+    res.json({ message: 'Message received' });
+  }
 }
 
 export async function getIdentity(_req: Request, res: Response): Promise<void> {
