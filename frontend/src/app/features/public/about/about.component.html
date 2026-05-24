@@ -51,6 +51,19 @@
             </div>
           }
         </div>
+
+        <div [appReveal]="500" class="about-contributions">
+          <div class="contrib-toolbar">
+            <select class="contrib-year-select mono"
+                    (change)="onYearChange($any($event.target).value)">
+              <option value="">Last year</option>
+              @for (y of availableYears(); track y) {
+                <option [value]="y" [selected]="y === selectedYear()">{{ y }}</option>
+              }
+            </select>
+          </div>
+          <app-contribution-heatmap [days]="contributions()" [year]="selectedYear()" />
+        </div>
       </div>
 
     </div>

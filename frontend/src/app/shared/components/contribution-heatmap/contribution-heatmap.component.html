@@ -1,0 +1,56 @@
+<div class="hm-wrap">
+  <div class="hm-header">
+    <span class="mono hm-total">{{ total() | number }} {{ heading() }}</span>
+  </div>
+
+  <div class="hm-outer">
+
+    <!-- Month labels row — absolutely positioned so labels never get clipped -->
+    <div class="hm-row">
+      <div class="hm-side-spacer"></div>
+      <div class="hm-months-bar">
+        @for (m of monthLabels(); track m.weekIndex) {
+          <span class="hm-month-label mono" [style.left]="monthLeft(m.weekIndex)">{{ m.label }}</span>
+        }
+      </div>
+    </div>
+
+    <!-- Week grid row -->
+    <div class="hm-row">
+      <div class="hm-side mono">
+        <span></span>
+        <span>Mon</span>
+        <span></span>
+        <span>Wed</span>
+        <span></span>
+        <span>Fri</span>
+        <span></span>
+      </div>
+      <div class="hm-cols">
+        @for (week of weeks(); track $index) {
+          <div class="hm-week">
+            @for (day of week; track $index) {
+              @if (day) {
+                <div class="hm-cell" [attr.data-level]="level(day.count)" [title]="tooltip(day)"></div>
+              } @else {
+                <div class="hm-cell hm-cell--pad"></div>
+              }
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="hm-legend mono">
+      <span>Less</span>
+      <div class="hm-cell" data-level="0"></div>
+      <div class="hm-cell" data-level="1"></div>
+      <div class="hm-cell" data-level="2"></div>
+      <div class="hm-cell" data-level="3"></div>
+      <div class="hm-cell" data-level="4"></div>
+      <span>More</span>
+    </div>
+
+  </div>
+</div>

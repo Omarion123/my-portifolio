@@ -89,6 +89,11 @@ export interface ContactInfo {
   message?: string;
 }
 
+export interface ContributionDay {
+  date: string;
+  count: number;
+}
+
 export interface PortfolioData {
   identity: Identity;
   about: About;

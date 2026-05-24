@@ -1,0 +1,66 @@
+<div class="adm-page">
+
+  <div class="adm-page-head">
+    <div>
+      <h1>GitHub Accounts</h1>
+      <p class="adm-page-sub">Add GitHub accounts to combine their contributions on the landing page.</p>
+    </div>
+  </div>
+
+  <!-- Add account -->
+  <div class="card adm-form" style="max-width:560px;">
+    <h2 style="font-size:1rem; font-weight:600; margin:0 0 1rem;">Add a GitHub account</h2>
+    <div>
+      <label class="field-label">GitHub username</label>
+      <input class="field" name="username" placeholder="octocat"
+             [ngModel]="form().username" (ngModelChange)="form.update(f => ({ ...f, username: $event }))">
+    </div>
+    <div>
+      <label class="field-label">Personal Access Token</label>
+      <input class="field" type="password" name="token" placeholder="ghp_xxxxxxxxxxxx"
+             [ngModel]="form().accessToken" (ngModelChange)="form.update(f => ({ ...f, accessToken: $event }))">
+      <p style="font-size:.8rem; color:var(--text-muted); margin-top:.375rem;">
+        Needs <code>read:user</code> scope. Never exposed to the public — stored server-side only.
+      </p>
+    </div>
+    <div>
+      <label class="field-label">Label (optional)</label>
+      <input class="field" name="label" placeholder="Work account"
+             [ngModel]="form().label" (ngModelChange)="form.update(f => ({ ...f, label: $event }))">
+    </div>
+    <div class="adm-drawer-foot">
+      <button class="btn btn-primary" (click)="add()" [disabled]="adding()">
+        {{ adding() ? 'Verifying token…' : 'Add account' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Account list -->
+  <div style="max-width:560px; margin-top:2rem;">
+    <h2 style="font-size:1rem; font-weight:600; margin:0 0 1rem;">Connected accounts</h2>
+
+    @if (loading()) {
+      <p class="adm-page-sub">Loading…</p>
+    } @else if (accounts().length === 0) {
+      <div class="card" style="padding:1.5rem; text-align:center; color:var(--text-muted);">
+        <p style="margin:0;">No accounts connected yet.</p>
+      </div>
+    } @else {
+      <div style="display:flex; flex-direction:column; gap:.75rem;">
+        @for (acc of accounts(); track acc._id) {
+          <div class="card" style="display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem;">
+            <div>
+              <div style="font-weight:500;">{{ acc.label || acc.username }}</div>
+              <div class="mono" style="font-size:.75rem; color:var(--text-muted); margin-top:.25rem;">
+                @{{ acc.username }} · Added {{ formatDate(acc.createdAt) }}
+              </div>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="color:var(--error, #e53e3e);"
+                    (click)="delete(acc._id, acc.username)">Remove</button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+</div>

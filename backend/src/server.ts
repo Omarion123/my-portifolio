@@ -16,6 +16,7 @@ import contactRoutes from './routes/contact';
 import uploadRoutes from './routes/upload';
 import identityRoutes from './routes/identity';
 import webAuthnRoutes from './routes/webauthn';
+import githubRoutes from './routes/github';
 
 const app = express();
 const PORT = Number(process.env.PORT ?? 3000);
@@ -43,6 +44,7 @@ app.use('/api/contact',        contactRoutes);
 app.use('/api/upload',         uploadRoutes);
 app.use('/api/identity',       identityRoutes);
 app.use('/api/webauthn',       webAuthnRoutes);
+app.use('/api/github',         githubRoutes);
 
 // Health check
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));

@@ -4,7 +4,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import {
   PortfolioData, Project, SkillGroup, Experience,
-  Education, Certification, BlogPost, Identity
+  Education, Certification, BlogPost, Identity, ContributionDay
 } from '../../shared/models/portfolio.models';
 import { environment } from '../../../environments/environment';
 
@@ -139,5 +139,10 @@ export class PortfolioService {
     const form = new FormData();
     form.append('image', file);
     return this.http.post<{ url: string; publicId: string }>(`${this.api}/upload/image`, form);
+  }
+
+  getContributions(year?: number) {
+    const params: Record<string, string> = year ? { year: String(year) } : {};
+    return this.http.get<ContributionDay[]>(`${this.api}/github/contributions`, { params });
   }
 }

@@ -27,6 +27,7 @@ export class AdminShellComponent {
     { label: 'Blog',           path: '/admin/blog',           icon: '❡' },
     { label: 'Contact',        path: '/admin/contact',        icon: '@' },
     { label: 'Passkeys',       path: '/admin/passkeys',       icon: '🔑' },
+    { label: 'GitHub',         path: '/admin/github',         icon: '⬡' },
   ];
 
   logout() { this.auth.logout(); }
