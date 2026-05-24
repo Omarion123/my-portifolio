@@ -26,6 +26,7 @@ export class AdminShellComponent {
     { label: 'Certifications', path: '/admin/certifications', icon: '✦' },
     { label: 'Blog',           path: '/admin/blog',           icon: '❡' },
     { label: 'Contact',        path: '/admin/contact',        icon: '@' },
+    { label: 'Passkeys',       path: '/admin/passkeys',       icon: '🔑' },
   ];
 
   logout() { this.auth.logout(); }

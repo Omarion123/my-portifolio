@@ -24,12 +24,27 @@
         <p class="login-error">{{ error() }}</p>
       }
 
-      <button class="btn btn-primary" type="submit" [disabled]="loading()">
+      <button class="btn btn-primary" type="submit" [disabled]="loading() || passkeyLoading()">
         @if (loading()) { Authenticating… } @else { Continue → }
       </button>
 
+      <div class="login-divider">
+        <span class="mono">or</span>
+      </div>
+
+      <button type="button" class="btn btn-secondary login-passkey-btn"
+              (click)="loginWithPasskey()"
+              [disabled]="passkeyLoading() || loading()">
+        @if (passkeyLoading()) {
+          <span>Waiting for fingerprint…</span>
+        } @else {
+          <span class="login-passkey-icon">&#x1F4AA;</span>
+          <span>Use fingerprint / passkey</span>
+        }
+      </button>
+
       <div class="login-fine mono">
-        <span>Single-admin · JWT 24h · 2FA enabled</span>
+        <span>Single-admin · JWT · passkey enabled</span>
       </div>
     </form>
 

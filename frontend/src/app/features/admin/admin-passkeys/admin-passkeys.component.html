@@ -1,0 +1,56 @@
+<div class="adm-page">
+
+  <div class="adm-page-head">
+    <div>
+      <h1>Passkeys &amp; Biometrics</h1>
+      <p class="adm-page-sub">Register your fingerprint or device biometric to log in without a password.</p>
+    </div>
+  </div>
+
+  <!-- Register new passkey -->
+  <div class="card adm-form" style="max-width:520px;">
+    <h2 style="font-size:1rem; font-weight:600; margin:0 0 1rem;">Register a new passkey</h2>
+    <div>
+      <label class="field-label">Device name</label>
+      <input class="field" name="deviceName" placeholder="e.g. Work laptop, iPhone"
+             [ngModel]="deviceName()" (ngModelChange)="deviceName.set($event)">
+    </div>
+    <div class="adm-drawer-foot">
+      <button class="btn btn-primary" (click)="register()" [disabled]="registering()">
+        @if (registering()) { Waiting for fingerprint… } @else { &#x1F4AA; Register fingerprint }
+      </button>
+    </div>
+    <p style="font-size:.8rem; color:var(--text-muted); margin-top:.75rem;">
+      Your browser will prompt you to scan your fingerprint or use your device PIN. The private key never leaves your device.
+    </p>
+  </div>
+
+  <!-- Registered passkeys list -->
+  <div style="max-width:520px; margin-top:2rem;">
+    <h2 style="font-size:1rem; font-weight:600; margin:0 0 1rem;">Registered passkeys</h2>
+
+    @if (loading()) {
+      <p class="adm-page-sub">Loading…</p>
+    } @else if (passkeys().length === 0) {
+      <div class="card" style="padding:1.5rem; text-align:center; color:var(--text-muted);">
+        <p style="margin:0;">No passkeys registered yet.</p>
+      </div>
+    } @else {
+      <div style="display:flex; flex-direction:column; gap:.75rem;">
+        @for (key of passkeys(); track key._id) {
+          <div class="card" style="display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem;">
+            <div>
+              <div style="font-weight:500;">{{ key.deviceName }}</div>
+              <div class="mono" style="font-size:.75rem; color:var(--text-muted); margin-top:.25rem;">
+                Registered {{ formatDate(key.createdAt) }}
+              </div>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="color:var(--error, #e53e3e);"
+                    (click)="delete(key._id)">Remove</button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+</div>

@@ -1516,6 +1516,29 @@ textarea.field {
   font-size: 13px;
   margin: 0;
 }
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--fg-dim);
+}
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.login-passkey-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+.login-passkey-icon {
+  font-size: 1.1rem;
+}
 .login-fine {
   color: var(--fg-dim);
   text-align: center;

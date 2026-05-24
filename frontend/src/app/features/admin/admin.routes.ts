@@ -41,6 +41,10 @@ export const ADMIN_ROUTES: Routes = [
         path: 'identity',
         loadComponent: () => import('./admin-identity/admin-identity.component').then(m => m.AdminIdentityComponent),
       },
+      {
+        path: 'passkeys',
+        loadComponent: () => import('./admin-passkeys/admin-passkeys.component').then(m => m.AdminPasskeysComponent),
+      },
     ],
   },
 ];
